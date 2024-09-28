@@ -2450,29 +2450,29 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
               NameQuest = "BanditQuest1"
               QuestLv = 1
               NameMon = "Bandit"
-              CFrameQ = CFrame.new(1059.37195, 15.4495068, 1550.4231, 0.939700544, -0, -0.341998369, 0, 1, -0, 0.341998369, 0, 0.939700544)
-              CFrameMon = CFrame.new(1045.962646484375, 27.00250816345215, 1560.8203125)
+              CFrameQ = CFrame.new(1060.9383544922, 16.455066680908, 1547.7841796875)
+              CFrameMon = CFrame.new(1038.5533447266, 41.296249389648, 1576.5098876953)
           elseif Lv == 10 or Lv <= 14 or SelectMonster == "Monkey [Lv. 14]" then -- Monkey
               Ms = "Monkey [Lv. 14]"
-              NameQ = "JungleQuest"
+              NameQuest = "JungleQuest"
               QuestLv = 1
               NameMon = "Monkey"
-              CFrameQ = CFrame.new(-1598.08911, 35.5501175, 153.377838, 0, 0, 1, 0, 1, -0, -1, 0, 0)
-              CFrameMon = CFrame.new(-1448.51806640625, 67.85301208496094, 11.46579647064209)
+              CFrameQ = CFrame.new(-1601.6553955078, 36.85213470459, 153.38809204102)
+              CFrameMon = CFrame.new(-1448.1446533203, 50.851993560791, 63.60718536377)
           elseif Lv == 15 or Lv <= 29 or SelectMonster == "Gorilla [Lv. 20]" then -- Gorilla
               Ms = "Gorilla [Lv. 20]"
               NameQuest = "JungleQuest"
               QuestLv = 2
               NameMon = "Gorilla"
-              CFrameQ = CFrame.new(-1598.08911, 35.5501175, 153.377838, 0, 0, 1, 0, 1, -0, -1, 0, 0)
-              CFrameMon = CFrame.new(-1129.8836669921875, 40.46354675292969, -525.4237060546875)
+              CFrameQ = CFrame.new(-1601.6553955078, 36.85213470459, 153.38809204102)
+              CFrameMon = CFrame.new(-1142.6488037109, 40.462348937988, -515.39227294922)
           elseif Lv == 30 or Lv <= 39 or SelectMonster == "Pirate [Lv. 35]" then -- Pirate
               Ms = "Pirate [Lv. 35]"
               NameQuest = "BuggyQuest1"
               QuestLv = 1
               NameMon = "Pirate"
-              CFrameQ = CFrame.new(-1141.07483, 4.10001802, 3831.5498, 0.965929627, -0, -0.258804798, 0, 1, -0, 0.258804798, 0, 0.965929627)
-              CFrameMon = CFrame.new(-1103.513427734375, 13.752052307128906, 3896.091064453125)
+              CFrameQ = CFrame.new(-1140.1761474609, 4.752049446106, 3827.4057617188)
+              CFrameMon = CFrame.new(-1201.0881347656, 40.628940582275, 3857.5966796875)
           elseif Lv == 40 or Lv <= 59 or SelectMonster == "Brute [Lv. 45]" then -- Brute
               Ms = "Brute [Lv. 45]"
               NameQuest = "BuggyQuest1"
@@ -6843,6 +6843,18 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
                   end)
               end
           end
+          local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
+local Camera = require(game.ReplicatedStorage.Util.CameraShaker)
+Camera:Stop()
+coroutine.wrap(function()
+    game:GetService("RunService").Stepped:Connect(function()
+        if getupvalues(CombatFramework)[2]['activeController'].timeToNextAttack then
+            getupvalues(CombatFramework)[2]['activeController'].timeToNextAttack = 0
+            getupvalues(CombatFramework)[2]['activeController'].hitboxMagnitude = 25
+            getupvalues(CombatFramework)[2]['activeController']:attack()
+        end
+    end)
+end)()
       end)
       
       Main:AddToggle("Auto Second Sea",_G.AutoSecondSea,function(value)
